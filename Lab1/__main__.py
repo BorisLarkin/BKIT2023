@@ -27,14 +27,14 @@ def get_roots(a, b, c):
     Solving a biquadratic equation
 
     Args:
-        a (float): coef А
+        a (float): coef A
         b (float): coef B
         c (float): coef C
 
     Returns:
         list[float]: root list
     '''
-    q_roots = []
+    q_roots = [] #Roots of the quadratic eq
     D = b*b - 4*a*c
     if D == 0.0:
         root = -b / (2.0*a)
@@ -48,8 +48,8 @@ def get_roots(a, b, c):
     biq_roots = []
     for i in q_roots:
         if i == 0.0:
-            biq_roots.append(0)
-        elif i>0:
+            biq_roots.append(0) #-0 = +0
+        elif i>0: #if i<0 the biquadratic eq roots become imaginary, which is forbidden
             biq_roots.append(math.sqrt(i))
             biq_roots.append(-math.sqrt(i))
     return biq_roots
@@ -59,7 +59,7 @@ def main():
     '''
     Main function
     '''
-    a = get_coef(1, 'Enter coefficient А:')
+    a = get_coef(1, 'Enter coefficient A:')
     b = get_coef(2, 'Enter coefficient B:')
     c = get_coef(3, 'Enter coefficient C:')
     # Calculating roots
