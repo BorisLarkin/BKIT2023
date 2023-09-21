@@ -1,77 +1,83 @@
 import sys
 import math
 
-def get_koeff(index, prompt):
+def get_coef(index, prompt):
     '''
-    Reads a koefficient from a prompt, be it KBM or console
+    Reads a coefficient, be it KBM or console
 
     Args:
-        index (int): Номер параметра в командной строке
-        prompt (str): Приглашение для ввода коэффицента
+        index (int): Number of the parameter in the console string
+        prompt (str): Suggests an input
 
     Returns:
-        float: Коэффициент квадратного уравнения
+        float: coefficient of the biquadratic equation
     '''
-    try:
-        # Пробуем прочитать коэффициент из командной строки
+    try: #to get a coeff from cmd
         coef_str = sys.argv[index]
     except:
-        # Вводим с клавиатуры
+        # KBM input
         print(prompt)
         coef_str = input()
-    # Переводим строку в действительное число
     coef = float(coef_str)
     return coef
 
 
 def get_roots(a, b, c):
     '''
-    Вычисление корней квадратного уравнения
+    Solving a biquadratic equation
 
     Args:
-        a (float): коэффициент А
-        b (float): коэффициент B
-        c (float): коэффициент C
+        a (float): coef А
+        b (float): coef B
+        c (float): coef C
 
     Returns:
-        list[float]: Список корней
+        list[float]: root list
     '''
-    result = []
+    q_roots = []
     D = b*b - 4*a*c
     if D == 0.0:
         root = -b / (2.0*a)
-        result.append(root)
+        q_roots.append(root)
     elif D > 0.0:
         sqD = math.sqrt(D)
         root1 = (-b + sqD) / (2.0*a)
         root2 = (-b - sqD) / (2.0*a)
-        result.append(root1)
-        result.append(root2)
-    return result
+        q_roots.append(root1)
+        q_roots.append(root2)
+    biq_roots = []
+    for i in q_roots:
+        if i == 0.0:
+            biq_roots.append(0)
+        elif i>0:
+            biq_roots.append(math.sqrt(i))
+            biq_roots.append(-math.sqrt(i))
+    return biq_roots
 
 
 def main():
     '''
-    Основная функция
+    Main function
     '''
-    a = get_coef(1, 'Введите коэффициент А:')
-    b = get_coef(2, 'Введите коэффициент B:')
-    c = get_coef(3, 'Введите коэффициент C:')
-    # Вычисление корней
+    a = get_coef(1, 'Enter coefficient А:')
+    b = get_coef(2, 'Enter coefficient B:')
+    c = get_coef(3, 'Enter coefficient C:')
+    # Calculating roots
     roots = get_roots(a,b,c)
-    # Вывод корней
+    # Roots output
     len_roots = len(roots)
     if len_roots == 0:
-        print('Нет корней')
+        print('No roots')
     elif len_roots == 1:
-        print('Один корень: {}'.format(roots[0]))
+        print('One root: {}'.format(roots[0]))
     elif len_roots == 2:
-        print('Два корня: {} и {}'.format(roots[0], roots[1]))
+        print('Two roots: {} & {}'.format(roots[0], roots[1]))
+    elif len_roots == 3:
+        print('Three roots: {} & {} & {}'.format(roots[0], roots[1], roots[2], ))
+    elif len_roots == 4:
+        print('Four roots: {} & {} & {} & {}'.format(roots[0], roots[1], roots[2], roots[3]))
     
 
-# Если сценарий запущен из командной строки
+# If executed from cmd
 if __name__ == "__main__":
     main()
-
-# Пример запуска
-# qr.py 1 0 -4
