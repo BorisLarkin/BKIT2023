@@ -60,6 +60,9 @@ def main():
     Main function
     '''
     a = get_coef(1, 'Enter coefficient A:')
+    if a==0:
+        print('The equation is not biquadrant.')
+        return
     b = get_coef(2, 'Enter coefficient B:')
     c = get_coef(3, 'Enter coefficient C:')
     # Calculating roots
