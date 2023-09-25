@@ -18,6 +18,14 @@ def get_coef(index, prompt):
         # KBM input
         print(prompt)
         coef_str = input()
+        flag = False
+        while not(flag):
+            try:
+                coef_str = int(coef_str)
+                flag = True
+            except:
+                print('Value is not a number, try again:')
+                coef_str = input()
     coef = float(coef_str)
     return coef
 
