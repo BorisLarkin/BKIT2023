@@ -1,0 +1,7 @@
+E:\Git\BKIT2023\Lab2 - Levenstein\Lab2\Lab2\bin\Debug\Lab2.exe.config
+E:\Git\BKIT2023\Lab2 - Levenstein\Lab2\Lab2\bin\Debug\Lab2.exe
+E:\Git\BKIT2023\Lab2 - Levenstein\Lab2\Lab2\bin\Debug\Lab2.pdb
+E:\Git\BKIT2023\Lab2 - Levenstein\Lab2\Lab2\obj\Debug\Lab2.csproj.AssemblyReference.cache
+E:\Git\BKIT2023\Lab2 - Levenstein\Lab2\Lab2\obj\Debug\Lab2.csproj.CoreCompileInputs.cache
+E:\Git\BKIT2023\Lab2 - Levenstein\Lab2\Lab2\obj\Debug\Lab2.exe
+E:\Git\BKIT2023\Lab2 - Levenstein\Lab2\Lab2\obj\Debug\Lab2.pdb
