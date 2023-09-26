@@ -23,7 +23,12 @@ namespace LevensteinApp
             return Result.ToString();
         }
 
-        static void Main(string[] args)
+        static void Run_It_Back(int curr_line, int curr_column, string curr_word, string result, int[,] Matrix)
+        {
+
+        }
+
+        static void Main()
         {
             Console.WriteLine("### Levenstein`s Distance Calculation Algorithm ###\n");
             string Word1 = GetInput("Enter the first word: ");
@@ -44,6 +49,21 @@ namespace LevensteinApp
             {
                 VF_Matrix[j, 0] = j;
             }
+
+            //Filling the matrix up using VF method
+            for (int column = 1; column < VF_Matrix.Rank(0); ++column)
+            {
+                for (int line = 1; line < VF_Matrix.Rank[1]; ++line)
+                {
+                    //Whether we +1 the left-up num in the comparison depends on whether the letters of the current pair are equal
+                    VF_Matrix[line, column] = max(VF_Matrix[line - 1, column] + 1, VF_Matrix[line, column - 1] + 1, VF_Matrix[line - 1, column - 1] + 1 * (VF_Matrix[0, column] != VF_Matrix[line, 0]));
+                }
+            }
+            //Got the Matrix, now the most faraway from (0,0) cell contains the Levenstein`s Distance.
+            Console.WriteLine("The Levenstein`s Distance for the input pair of words = {0}", VF_Matrix[Word1.Length + 1, Word2.Length + 1]);
+
+            //To trace the path of permutations, we`ll use a recurrent function
+            Run_It_Back(0, 0, Word1, Word2, VF_Matrix);
 
             for (int i = 0; i < VF_Matrix.GetLength(0); i++)
             {
