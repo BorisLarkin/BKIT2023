@@ -22,6 +22,17 @@ namespace LevensteinApp
             return Result.ToString();
         }
 
+        static void Print_Matrix(int[,] Matrix, string title) {
+            Console.WriteLine("\n{0}\n", title);
+            for (int i = 0; i < Matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < Matrix.GetLength(1); j++)
+                {
+                    Console.Write(Matrix[i, j] + "\t");
+                }
+                Console.WriteLine();
+            }
+        }
         static void Run_It_Back(int curr_line, int curr_column, string curr_word, string result, int[,] Matrix)
         {
 
@@ -58,15 +69,7 @@ namespace LevensteinApp
             }
 
             //Printing the matrix to check
-            Console.WriteLine("\nVagner-Fischer`s Matrix:\n");
-            for (int i = 0; i < VF_Matrix.GetLength(0); i++)
-            {
-                for (int j = 0; j < VF_Matrix.GetLength(1); j++)
-                {
-                    Console.Write(VF_Matrix[i, j] + "\t");
-                }
-                Console.WriteLine();
-            }
+            Print_Matrix(VF_Matrix, "Vagner - Fischer`s Matrix:");
 
             //Got the Matrix, now the most faraway from (0,0) cell contains the Levenstein`s Distance.
             Console.WriteLine("\nThe Levenstein`s Distance for the input pair of words = {0}", VF_Matrix[Word2.Length, Word1.Length]);
