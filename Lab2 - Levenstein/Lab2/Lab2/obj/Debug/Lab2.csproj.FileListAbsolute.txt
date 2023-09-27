@@ -5,3 +5,10 @@ E:\Git\BKIT2023\Lab2 - Levenstein\Lab2\Lab2\obj\Debug\Lab2.csproj.AssemblyRefere
 E:\Git\BKIT2023\Lab2 - Levenstein\Lab2\Lab2\obj\Debug\Lab2.csproj.CoreCompileInputs.cache
 E:\Git\BKIT2023\Lab2 - Levenstein\Lab2\Lab2\obj\Debug\Lab2.exe
 E:\Git\BKIT2023\Lab2 - Levenstein\Lab2\Lab2\obj\Debug\Lab2.pdb
+C:\Прога\ProgrammingProjects\BKIT2023\Lab2 - Levenstein\Lab2\Lab2\bin\Debug\Lab2.exe.config
+C:\Прога\ProgrammingProjects\BKIT2023\Lab2 - Levenstein\Lab2\Lab2\bin\Debug\Lab2.exe
+C:\Прога\ProgrammingProjects\BKIT2023\Lab2 - Levenstein\Lab2\Lab2\bin\Debug\Lab2.pdb
+C:\Прога\ProgrammingProjects\BKIT2023\Lab2 - Levenstein\Lab2\Lab2\obj\Debug\Lab2.csproj.AssemblyReference.cache
+C:\Прога\ProgrammingProjects\BKIT2023\Lab2 - Levenstein\Lab2\Lab2\obj\Debug\Lab2.csproj.CoreCompileInputs.cache
+C:\Прога\ProgrammingProjects\BKIT2023\Lab2 - Levenstein\Lab2\Lab2\obj\Debug\Lab2.exe
+C:\Прога\ProgrammingProjects\BKIT2023\Lab2 - Levenstein\Lab2\Lab2\obj\Debug\Lab2.pdb
