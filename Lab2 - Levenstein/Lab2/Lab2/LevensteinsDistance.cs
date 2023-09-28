@@ -33,8 +33,17 @@ namespace LevensteinApp
                 Console.WriteLine();
             }
         }
-        static void Run_It_Back(int curr_line, int curr_column, string curr_word, string result, int[,] Matrix)
+        static void Run_It_Back(int curr_line, int curr_column, string WordSource, string WordRes, int[,] Matrix)
         {
+            if (curr_line == 0 & curr_column == 0) {  return; }
+            string NewWordSource = WordSource;
+            string NewWordRes = WordRes;
+            if (WordSource[curr_column] == WordRes[curr_line]) {
+                if (Matrix[curr_line, curr_column] == Matrix[curr_line - 1, curr_column - 1]) {
+                    Run_It_Back(curr_line - 1, curr_column - 1, NewWordSource, NewWordRes, Matrix);
+                    //No Console output - there was no action performed because the letters matched
+                }
+            }
 
         }
 
@@ -45,6 +54,7 @@ namespace LevensteinApp
             string Word2 = GetInput("Enter the second word: ");
 
             int[,] VF_Matrix = new int[Word2.Length + 1, Word1.Length + 1]; //Creating a Vagner-Fischer`s Matrix
+            //Suppose Word1 is the Source word, Word2 is the result
 
             //Initializing the first line of the Matrix
             for (int i = 0; i < Word1.Length + 1; ++i)
