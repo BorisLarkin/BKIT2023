@@ -18,7 +18,7 @@ namespace LevensteinApp
             }
             //Having taken in a string with letters, delete everything non-letter
             StringBuilder Result = new StringBuilder(count);
-            foreach (var x in Inp) if (char.IsLetter(x)) { Result.Append(x);};
+            foreach (var x in Inp) if (char.IsLetter(x)) { Result.Append(char.ToUpper(x)); };
             return Result.ToString();
         }
 
@@ -37,28 +37,48 @@ namespace LevensteinApp
         {
             if (curr_line == 0 & curr_column == 0) {  return; }
             StringBuilder NewWordRes = new StringBuilder(WordRes);
-            if (Matrix[curr_line, curr_column] == Matrix[curr_line - 1, curr_column] + 1) { //Adding a letter to source
-                NewWordRes.Remove(curr_line-1, 1);
+            if (curr_column == 0)
+            {
+                NewWordRes.Remove(curr_line - 1, 1);
                 Run_It_Back(curr_line - 1, curr_column, WordSource, NewWordRes.ToString(), Matrix);
-                Console.WriteLine("We add {0} to {1} and recieve {2}", WordRes[WordRes.Length-1],NewWordRes.ToString(),WordRes);
+                Console.WriteLine("We add {0} to {1} and recieve {2}", WordRes[WordRes.Length - 1], NewWordRes.ToString(), WordRes);
             }
-            else if (Matrix[curr_line, curr_column] == Matrix[curr_line, curr_column -1] + 1) { //Deleting a leter from source
-                NewWordRes.Append(WordSource[curr_column-1]);
-                Run_It_Back(curr_line, curr_column-1, WordSource, NewWordRes.ToString(), Matrix);
+            else if (curr_line == 0)
+            {
+                NewWordRes.Insert(curr_column - 1, WordSource[curr_column - 1]);
+                Run_It_Back(curr_line, curr_column - 1, WordSource, NewWordRes.ToString(), Matrix);
                 Console.WriteLine("We delete {0} out of {1} to recieve {2}", WordSource[curr_column - 1], NewWordRes.ToString(), WordRes);
             }
-            else if (WordSource[curr_column] == WordRes[curr_line]) {
-                if (Matrix[curr_line, curr_column] == Matrix[curr_line - 1, curr_column - 1]) { 
-                    Run_It_Back(curr_line - 1, curr_column - 1, WordSource, NewWordRes.ToString(), Matrix);
-                    //No Console output - there was no action performed because the letters matched
+            else
+            {
+                if (Matrix[curr_line, curr_column] == Matrix[curr_line - 1, curr_column] + 1)
+                { //Adding a letter to source
+                    NewWordRes.Remove(curr_line - 1, 1);
+                    Run_It_Back(curr_line - 1, curr_column, WordSource, NewWordRes.ToString(), Matrix);
+                    Console.WriteLine("We add {0} to {1} and recieve {2}", WordRes[WordRes.Length - 1], NewWordRes.ToString(), WordRes);
                 }
-            }
-            else { //The only option left - we change the letters
-                char tmp = NewWordRes[curr_column - 1]; //We need to save that for the output
-                NewWordRes.Remove(curr_line - 1, 1);
-                NewWordRes.Insert(curr_line-1, WordSource[curr_column-1]);
-                Run_It_Back(curr_line - 1, curr_column - 1, WordSource, NewWordRes.ToString(), Matrix);
-                Console.WriteLine("We replace {0} with {1} to recieve {2}", tmp, NewWordRes[curr_line-1], WordRes);
+                else if (Matrix[curr_line, curr_column] == Matrix[curr_line, curr_column - 1] + 1)
+                { //Deleting a leter from source
+                    NewWordRes.Insert(curr_column - 1, WordSource[curr_column - 1]);
+                    Run_It_Back(curr_line, curr_column - 1, WordSource, NewWordRes.ToString(), Matrix);
+                    Console.WriteLine("We delete {0} out of {1} to recieve {2}", WordSource[curr_column - 1], NewWordRes.ToString(), WordRes);
+                }
+                else if (WordSource[curr_column-1] == WordRes[curr_line-1])
+                {
+                    if (Matrix[curr_line, curr_column] == Matrix[curr_line - 1, curr_column - 1])
+                    {
+                        Run_It_Back(curr_line - 1, curr_column - 1, WordSource, NewWordRes.ToString(), Matrix);
+                        //No Console output - there was no action performed because the letters matched
+                    }
+                }
+                else
+                { //The only option left - we change the letters
+                    char tmp = NewWordRes[curr_column - 1]; //We need to save that for the output
+                    NewWordRes.Remove(curr_line - 1, 1);
+                    NewWordRes.Insert(curr_line - 1, WordSource[curr_column - 1]);
+                    Run_It_Back(curr_line - 1, curr_column - 1, WordSource, NewWordRes.ToString(), Matrix);
+                    Console.WriteLine("We replace {0} with {1} to recieve {2}", NewWordRes[curr_line - 1], tmp,  WordRes);
+                }
             }
             return;
         }
@@ -68,6 +88,8 @@ namespace LevensteinApp
             Console.WriteLine("### Levenstein`s Distance Calculation Algorithm ###\n");
             string Word1 = GetInput("Enter the first word: ");
             string Word2 = GetInput("Enter the second word: ");
+
+            Console.WriteLine("\nThe word {0} is to become the word {1}.\n", Word1, Word2);
 
             int[,] VF_Matrix = new int[Word2.Length + 1, Word1.Length + 1]; //Creating a Vagner-Fischer`s Matrix
             //Suppose Word1 is the Source word, Word2 is the result
@@ -101,7 +123,7 @@ namespace LevensteinApp
             Console.WriteLine("\nThe Levenstein`s Distance for the input pair of words = {0}", VF_Matrix[Word2.Length, Word1.Length]);
 
             //To trace the path of permutations, we`ll use a recurrent function
-            Run_It_Back(VF_Matrix.GetLength(0), VF_Matrix.GetLength(1), Word1, Word2, VF_Matrix);
+            Run_It_Back(VF_Matrix.GetLength(0)-1, VF_Matrix.GetLength(1)-1, Word1, Word2, VF_Matrix);
 
             Console.Write("\nProgram finished. Press any key to terminate . . .");
             Console.ReadKey();
