@@ -36,15 +36,31 @@ namespace LevensteinApp
         static void Run_It_Back(int curr_line, int curr_column, string WordSource, string WordRes, int[,] Matrix)
         {
             if (curr_line == 0 & curr_column == 0) {  return; }
-            string NewWordSource = WordSource;
-            string NewWordRes = WordRes;
-            if (WordSource[curr_column] == WordRes[curr_line]) {
-                if (Matrix[curr_line, curr_column] == Matrix[curr_line - 1, curr_column - 1]) {
-                    Run_It_Back(curr_line - 1, curr_column - 1, NewWordSource, NewWordRes, Matrix);
+            StringBuilder NewWordRes = new StringBuilder(WordRes);
+            if (Matrix[curr_line, curr_column] == Matrix[curr_line - 1, curr_column] + 1) { //Adding a letter to source
+                NewWordRes.Remove(curr_line-1, 1);
+                Run_It_Back(curr_line - 1, curr_column, WordSource, NewWordRes.ToString(), Matrix);
+                Console.WriteLine("We add {0} to {1} and recieve {2}", WordRes[WordRes.Length-1],NewWordRes.ToString(),WordRes);
+            }
+            else if (Matrix[curr_line, curr_column] == Matrix[curr_line, curr_column -1] + 1) { //Deleting a leter from source
+                NewWordRes.Append(WordSource[curr_column-1]);
+                Run_It_Back(curr_line, curr_column-1, WordSource, NewWordRes.ToString(), Matrix);
+                Console.WriteLine("We delete {0} out of {1} to recieve {2}", WordSource[curr_column - 1], NewWordRes.ToString(), WordRes);
+            }
+            else if (WordSource[curr_column] == WordRes[curr_line]) {
+                if (Matrix[curr_line, curr_column] == Matrix[curr_line - 1, curr_column - 1]) { 
+                    Run_It_Back(curr_line - 1, curr_column - 1, WordSource, NewWordRes.ToString(), Matrix);
                     //No Console output - there was no action performed because the letters matched
                 }
             }
-
+            else { //The only option left - we change the letters
+                char tmp = NewWordRes[curr_column - 1]; //We need to save that for the output
+                NewWordRes.Remove(curr_line - 1, 1);
+                NewWordRes.Insert(curr_line-1, WordSource[curr_column-1]);
+                Run_It_Back(curr_line - 1, curr_column - 1, WordSource, NewWordRes.ToString(), Matrix);
+                Console.WriteLine("We replace {0} with {1} to recieve {2}", tmp, NewWordRes[curr_line-1], WordRes);
+            }
+            return;
         }
 
         static void Main()
@@ -85,7 +101,7 @@ namespace LevensteinApp
             Console.WriteLine("\nThe Levenstein`s Distance for the input pair of words = {0}", VF_Matrix[Word2.Length, Word1.Length]);
 
             //To trace the path of permutations, we`ll use a recurrent function
-            Run_It_Back(0, 0, Word1, Word2, VF_Matrix);
+            Run_It_Back(VF_Matrix.GetLength(0), VF_Matrix.GetLength(1), Word1, Word2, VF_Matrix);
 
             Console.Write("\nProgram finished. Press any key to terminate . . .");
             Console.ReadKey();
