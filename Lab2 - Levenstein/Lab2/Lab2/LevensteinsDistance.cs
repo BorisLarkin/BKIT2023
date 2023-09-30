@@ -22,10 +22,15 @@ namespace LevensteinApp
             return Result.ToString();
         }
 
-        static void Print_Matrix(int[,] Matrix, string title) {
+        static void Print_Matrix(int[,] Matrix, string WordSource, string WordRes, string title) {
             Console.WriteLine("\n{0}\n", title);
+            Console.Write("\t\t");
+            foreach (var x in WordSource) { Console.Write("{0}\t",x); }
+            Console.Write("\n");
             for (int i = 0; i < Matrix.GetLength(0); i++)
             {
+                if (i != 0) { Console.Write("{0}\t", WordRes[i - 1]); }
+                else { Console.Write("\t"); }
                 for (int j = 0; j < Matrix.GetLength(1); j++)
                 {
                     Console.Write(Matrix[i, j] + "\t");
@@ -89,8 +94,8 @@ namespace LevensteinApp
         static void Main()
         {
             Console.WriteLine("### Levenstein`s Distance Calculation Algorithm ###\n");
-            string Word1 = GetInput("Enter the first word: ");
-            string Word2 = GetInput("Enter the second word: ");
+            string Word1 = GetInput("Enter the word that is to be edited: ");
+            string Word2 = GetInput("Enter the result word: ");
 
             Console.WriteLine("\nThe word {0} is to become the word {1}.\n", Word1, Word2);
 
@@ -120,10 +125,10 @@ namespace LevensteinApp
             }
 
             //Printing the matrix to check
-            Print_Matrix(VF_Matrix, "Vagner - Fischer`s Matrix:");
+            Print_Matrix(VF_Matrix, Word1, Word2, "Vagner - Fischer`s Matrix:");
 
             //Got the Matrix, now the most faraway from (0,0) cell contains the Levenstein`s Distance.
-            Console.WriteLine("\nThe Levenstein`s Distance for the input pair of words = {0}", VF_Matrix[Word2.Length, Word1.Length]);
+            Console.WriteLine("\nThe Levenstein`s Distance for the input pair of words = {0}\n", VF_Matrix[Word2.Length, Word1.Length]);
 
             //To trace the path of permutations, we`ll use a recurrent function
             Run_It_Back(VF_Matrix.GetLength(0)-1, VF_Matrix.GetLength(1)-1, Word1, Word2, VF_Matrix);
