@@ -39,9 +39,10 @@ namespace LevensteinApp
             StringBuilder NewWordRes = new StringBuilder(WordRes);
             if (curr_column == 0)
             {
+                char tmp = NewWordRes[curr_line - 1];
                 NewWordRes.Remove(curr_line - 1, 1);
                 Run_It_Back(curr_line - 1, curr_column, WordSource, NewWordRes.ToString(), Matrix);
-                Console.WriteLine("We add {0} to {1} and recieve {2}", WordRes[WordRes.Length - 1], NewWordRes.ToString(), WordRes);
+                Console.WriteLine("We add {0} to {1} and recieve {2}", tmp, NewWordRes.ToString(), WordRes);
             }
             else if (curr_line == 0)
             {
@@ -53,9 +54,11 @@ namespace LevensteinApp
             {
                 if (Matrix[curr_line, curr_column] == Matrix[curr_line - 1, curr_column] + 1)
                 { //Adding a letter to source
+                    char tmp = NewWordRes[curr_line - 1];
                     NewWordRes.Remove(curr_line - 1, 1);
                     Run_It_Back(curr_line - 1, curr_column, WordSource, NewWordRes.ToString(), Matrix);
-                    Console.WriteLine("We add {0} to {1} and recieve {2}", WordRes[WordRes.Length - 1], NewWordRes.ToString(), WordRes);
+                    Console.WriteLine("We add {0} to {1} and recieve {2}", tmp, NewWordRes.ToString(), WordRes);
+
                 }
                 else if (Matrix[curr_line, curr_column] == Matrix[curr_line, curr_column - 1] + 1)
                 { //Deleting a leter from source
