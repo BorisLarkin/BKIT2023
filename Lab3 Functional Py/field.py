@@ -3,10 +3,22 @@ def field(items, *args):
     result = []
     for item in items:
         if len(args)==1:
-            result.append(item[arg])
+            result.append(item[args[0]])
         else:
             line = {}
             for arg in args:
-                line[arg] = item [arg]
+                if arg in item:
+                    line[arg] = item[arg]
             result.append(line)
     return result
+
+def main():
+    goods = [
+    {'title': 'Ковер', 'price': 2000, 'color': 'green'},
+    {'title': 'Диван для отдыха', 'color': 'black'}
+]
+    print(field(goods,'title', 'price'))
+    return 
+
+if __name__ == "__main__":
+    main()
