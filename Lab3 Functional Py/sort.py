@@ -4,7 +4,7 @@ def main():
     result = sorted(data)
     print(result)
 
-    result_with_lambda = lambda i: i in sorted(result)
+    result_with_lambda = sorted(data, key=lambda item: item)
     print(result_with_lambda)
 
 if __name__ == '__main__':
