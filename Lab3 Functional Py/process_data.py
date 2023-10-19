@@ -1,12 +1,15 @@
-import json
-import sys
-# Сделаем другие необходимые импорты
+import json 
+from pathlib import *
+from sys import *
+from cm_timer import *
+from field import *
+from gen_random import *
+from print_result import *
+from sort import *
+from unique import *
+import os
 
-path = None
-
-# Необходимо в переменную path сохранить путь к файлу, который был передан при запуске сценария
-
-with open(path) as f:
+with open('data_light.json', 'r') as f:
     data = json.load(f)
 
 # Далее необходимо реализовать все функции по заданию, заменив `raise NotImplemented`
@@ -32,7 +35,9 @@ def f3(arg):
 def f4(arg):
     raise NotImplemented
 
-
-if __name__ == '__main__':
+def main():
     with cm_timer_1():
         f4(f3(f2(f1(data))))
+
+if __name__ == '__main__':
+    main()
