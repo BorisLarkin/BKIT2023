@@ -8,36 +8,31 @@ from print_result import *
 from sort import *
 from unique import *
 import os
+import string
 
-with open('data_light.json', 'r') as f:
+with open('data_light.json', 'r', encoding='utf-8') as f:
     data = json.load(f)
 
-# Далее необходимо реализовать все функции по заданию, заменив `raise NotImplemented`
-# Предполагается, что функции f1, f2, f3 будут реализованы в одну строку
-# В реализации функции f4 может быть до 3 строк
 
 @print_result
 def f1(arg):
-    raise NotImplemented
+    return sorted(list(Unique([s['job-name'] for s in arg], ignore_case = True)))
 
 
 @print_result
 def f2(arg):
-    raise NotImplemented
+    return list(filter(lambda s: (s.lower().startswith("╨┐╤А╨╛╨│╤А╨░╨╝╨╝╨╕╤Б╤В")), arg))
 
 
 @print_result
 def f3(arg):
-    raise NotImplemented
+    return [(s + " ╤Б ╨╛╨┐╤Л╤В╨╛╨╝ Python") for s in arg]
 
 
 @print_result
 def f4(arg):
-    raise NotImplemented
-
-def main():
-    with cm_timer_1():
-        f4(f3(f2(f1(data))))
+    return list([(s +', ╨╖╨░╤А╨┐╨╗╨░╤В╨░ ' + str(list(gen_random(1,100000,200000))[0])) for s in arg])
 
 if __name__ == '__main__':
-    main()
+    with cm_timer_1():
+        f4(f3(f2(f1(data))))

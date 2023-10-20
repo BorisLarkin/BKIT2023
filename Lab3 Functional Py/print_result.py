@@ -1,15 +1,16 @@
 def print_result(func):
-    def format():
-        print(func.__name__, ':\n')
-        output = func()
+    def format(*arg):
+        print('\n'+func.__name__, ':')
+        output = func(*arg)
         if type(output) is list:
             for item in output:
-                print(item, '\n')
+                print(item)
         elif type(output) is dict:
             for key, value in output.items():
-                print(str(key) + ' = ' + str(value) + '\n')
+                print(str(key) + ' = ' + str(value))
         else:
-            print(output) 
+            print(output)
+        return output
 
     return format
 
