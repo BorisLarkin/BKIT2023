@@ -7,8 +7,6 @@ from gen_random import *
 from print_result import *
 from sort import *
 from unique import *
-import os
-import string
 
 with open('data_light.json', 'r', encoding='utf-8') as f:
     data = json.load(f)

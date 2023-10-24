@@ -30,7 +30,7 @@ class Unique(object):
 
 def main():
     data = ['a', 'A', 'b', 'B', 'a', 'A', 'b', 'B']
-    print(list(Unique(data, ignore_case = False)))
+    print(list(Unique(data, ignore_case = True)))
     return 
 
 if __name__ == "__main__":

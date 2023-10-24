@@ -4,6 +4,7 @@ def gen_random(num_count, begin, end):
     for iteration in range(num_count):
         yield randint(begin,end)
 
+
 def main():
     print(list(gen_random(5,1,3)))
     return 
