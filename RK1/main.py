@@ -58,7 +58,7 @@ IDEs_langs = [
     Lang_IDE(2,1),
     Lang_IDE(3,2),
     Lang_IDE(1,1),
-    Lang_IDE(3,2),
+    Lang_IDE(2,2),
 
 
     Lang_IDE(11,4),
@@ -74,58 +74,58 @@ def main():
 
 
     # Соединение данных один-ко-многим 
-    one_to_many = [(l.name, l.ver, i.name, i.year) 
+    one_to_many = [(l.name, l.ver, l.market_share, i.name, i.year) 
         for l in langs 
         for i in IDEs
         if i.id==l.ide_id]
     
     # Соединение данных многие-ко-многим
-    many_to_many_temp = [(i.name, i.id, il.ide_id) 
+    many_to_many_temp = [(i.name, i.year, il.l_id) 
         for i in IDEs 
         for il in IDEs_langs 
         if i.id==il.ide_id]
     
-    many_to_many = [(e.fio, e.sal, dep_name) 
-        for dep_name, dep_id, IDE_id in many_to_many_temp
-        for e in IDEs if e.id==IDE_id]
+    many_to_many = [(i_name, i_year, l.name, l.ver, l.market_share) 
+        for i_name, i_year, l_id in many_to_many_temp
+        for l in langs if l.id==l_id]
 
 
     print('Задание А1')
-    res_11 = sorted(one_to_many, key=itemgetter(2))
+    res_11 = sorted(one_to_many, key=itemgetter(3))
     print(res_11)
     
     print('\nЗадание А2')
     res_12_unsorted = []
-    # Перебираем все отделы
-    for d in deps:
-        # Список сотрудников отдела
-        d_IDEs = list(filter(lambda i: i[2]==d.name, one_to_many))
-        # Если отдел не пустой        
-        if len(d_IDEs) > 0:
-            # Зарплаты сотрудников отдела
-            d_sals = [sal for _,sal,_ in d_IDEs]
-            # Суммарная зарплата сотрудников отдела
-            d_sals_sum = sum(d_sals)
-            res_12_unsorted.append((d.name, d_sals_sum))
+    # Перебираем все IDE
+    for i in IDEs:
+        # Список языков, поддерживаемых средой
+        ide_langs = list(filter(lambda k: k[3]==i.name, one_to_many))
+        # Если хотя бы один язык поддерживается 
+        if len(ide_langs) > 0:
+            # Доли рынка каждого языка IDE
+            ide_market_shares = [share for _,_,share,_,_ in ide_langs]
+            # Общая доля рынка поддерживаемых языков
+            ide_ms_sum = sum(ide_market_shares)
+            res_12_unsorted.append((i.name, ide_ms_sum))
 
 
-    # Сортировка по суммарной зарплате
+    # Сортировка по суммарной доле рынка
     res_12 = sorted(res_12_unsorted, key=itemgetter(1), reverse=True)
     print(res_12)
 
 
     print('\nЗадание А3')
     res_13 = {}
-    # Перебираем все отделы
-    for d in deps:
-        if 'отдел' in d.name:
-            # Список сотрудников отдела
-            d_IDEs = list(filter(lambda i: i[2]==d.name, many_to_many))
-            # Только ФИО сотрудников
-            d_IDEs_names = [x for x,_,_ in d_IDEs]
+    # Перебираем все IDE
+    for i in IDEs:
+        if 'Visual Studio' in i.name:
+            # Список языков IDE
+            i_langs = list(filter(lambda k: k[0]==i.name, many_to_many))
+            # Только названия языков 
+            i_langs_names = [x for _,_,x,_,_ in i_langs]
             # Добавляем результат в словарь
-            # ключ - отдел, значение - список фамилий
-            res_13[d.name] = d_IDEs_names
+            # ключ - IDE, значение - список языков
+            res_13[i.name] = i_langs_names
 
 
     print(res_13)
