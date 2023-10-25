@@ -4,6 +4,7 @@ from operator import itemgetter
 #Язык программирования - средство разработки
 class Lang:
     """ЯП"""
+    """share = market share, %"""
     def __init__(self, id, name, ver, share, ide_id):
         self.id = id
         self.ver = ver
@@ -53,18 +54,18 @@ IDEs = [
 
 
 IDEs_langs = [
+    Lang_IDE(1,2),
+    Lang_IDE(2,1),
+    Lang_IDE(3,2),
     Lang_IDE(1,1),
-    Lang_IDE(2,2),
-    Lang_IDE(3,3),
-    Lang_IDE(3,4),
-    Lang_IDE(3,5),
+    Lang_IDE(3,2),
 
 
-    Lang_IDE(11,1),
-    Lang_IDE(22,2),
+    Lang_IDE(11,4),
+    Lang_IDE(22,5),
     Lang_IDE(33,3),
-    Lang_IDE(33,4),
-    Lang_IDE(33,5),
+    Lang_IDE(11,1),
+    Lang_IDE(11,2),
 ]
 
 
@@ -73,16 +74,16 @@ def main():
 
 
     # Соединение данных один-ко-многим 
-    one_to_many = [(l.name, l.ver, i.name) 
+    one_to_many = [(l.name, l.ver, i.name, i.year) 
         for l in langs 
         for i in IDEs
         if i.id==l.ide_id]
     
     # Соединение данных многие-ко-многим
-    many_to_many_temp = [(d.name, ed.dep_id, ed.IDE_id) 
-        for l in langs 
-        for ed in IDEs_langs 
-        if d.id==ed.dep_id]
+    many_to_many_temp = [(i.name, i.id, il.ide_id) 
+        for i in IDEs 
+        for il in IDEs_langs 
+        if i.id==il.ide_id]
     
     many_to_many = [(e.fio, e.sal, dep_name) 
         for dep_name, dep_id, IDE_id in many_to_many_temp
