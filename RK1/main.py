@@ -33,13 +33,13 @@ class Lang_IDE:
 
 # Languages
 langs = [
-    Lang(1, 'Python', '3.11', 29.48, 2),
-    Lang(2, 'C#', '11', 6.94,1),
-    Lang(3, 'C', 'C17', 6.49,2),
+    Lang(1, 'Python', '3.11', 29.48, 2), #VSCODE
+    Lang(2, 'C#', '11', 6.94,1), #MVS
+    Lang(3, 'C', 'C17', 6.49,2), #VSCODE
 
-    Lang(11, 'C++', 'C++20', 6.49,4),
-    Lang(22, 'Java', 'Java SE 21', 17.18,5),
-    Lang(33, 'GO', '1.21.3', 36.1,3),
+    Lang(11, 'C++', 'C++20', 6.49,4), #IDEA
+    Lang(22, 'Java', 'Java SE 21', 17.18,5), #Eclipse
+    Lang(33, 'GO', '1.21.3', 36.1,3), #Komodo
 ]
 
 
@@ -54,18 +54,18 @@ IDEs = [
 
 
 IDEs_langs = [
-    Lang_IDE(1,2),
-    Lang_IDE(2,1),
-    Lang_IDE(3,2),
-    Lang_IDE(1,1),
-    Lang_IDE(2,2),
+    Lang_IDE(1,2), #Py - VSCODE
+    Lang_IDE(2,1), #C# - MVS
+    Lang_IDE(3,2), # C - VSCODE
+    Lang_IDE(1,1), # Py - MVS
+    Lang_IDE(2,2), #C# - VSCODE
 
 
-    Lang_IDE(11,4),
-    Lang_IDE(22,5),
-    Lang_IDE(33,3),
-    Lang_IDE(11,1),
-    Lang_IDE(11,2),
+    Lang_IDE(11,4), #C++  - IDEA
+    Lang_IDE(22,5), #Java - Eclipse
+    Lang_IDE(33,3), #GO - Komodo
+    Lang_IDE(11,1), #C++ - MVS
+    Lang_IDE(11,2), #C++ - VSCODE
 ]
 
 
@@ -91,7 +91,7 @@ def main():
 
 
     print('Задание А1')
-    res_11 = sorted(one_to_many, key=itemgetter(3))
+    res_11 = sorted(one_to_many, key=itemgetter(3)) #Сортировка по названию IDE
     print(res_11)
     
     print('\nЗадание А2')
@@ -109,7 +109,7 @@ def main():
             res_12_unsorted.append((i.name, ide_ms_sum))
 
 
-    # Сортировка по суммарной доле рынка
+    # Сортировка IDE по суммарной доле рынка
     res_12 = sorted(res_12_unsorted, key=itemgetter(1), reverse=True)
     print(res_12)
 
@@ -118,7 +118,7 @@ def main():
     res_13 = {}
     # Перебираем все IDE
     for i in IDEs:
-        if 'Visual Studio' in i.name:
+        if 'Visual Studio' in i.name: #Если в названии присутствует "Visual Studio"
             # Список языков IDE
             i_langs = list(filter(lambda k: k[0]==i.name, many_to_many))
             # Только названия языков 
