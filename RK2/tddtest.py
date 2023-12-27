@@ -17,8 +17,7 @@ class TestMain(unittest.TestCase):
                                                  ('Microsoft Visual Studio', 6.94), ('IntelliJ IDEA', 6.49)])
 
     def test_A3(self):
-        self.assertEqual(solve_a3(many_to_many), {'Microsoft Visual Studio': ['C#', 'Python', 'C++'],
-                                      'Visual Studio Code': ['Python', 'C', 'C#', 'C++']})
+        self.assertEqual(solve_a3(many_to_many), {'Microsoft Visual Studio': ['C#', 'Python', 'C++'], 'Visual Studio Code': ['Python', 'C', 'C#', 'C++']})
 
 
 if __name__ == "__main__":
