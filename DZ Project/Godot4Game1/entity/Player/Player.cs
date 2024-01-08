@@ -4,12 +4,18 @@ using System;
 public partial class Player : entity
 {
 	private Dash dash;
+	private AnimationTree AnimTree;
+	private AnimationNodeStateMachinePlayback stateMachine;
 
 	public override object Clone()
 	{
 		return new Player(this);
 	}
 
+	void _on_animation_tree_ready(){
+		AnimTree = GetNode<AnimationTree>("AnimationTree");
+		stateMachine = (AnimationNodeStateMachinePlayback)AnimTree.Get("parameters/playback");
+	}
 	void _on_dash_ready()
 	{
 		dash = GetNode<Dash>("Dash");
@@ -56,6 +62,17 @@ public partial class Player : entity
 				velocity = velocity.LimitLength(max_speed);
 			}
 		}
+		
+		if (velocity == Vector2.Zero){
+			//res://entity/Player/Player.tscn::AnimationNodeStateMachineTransition_b1bmp
+			stateMachine.Travel("IDLE");
+		}
+		else{
+			stateMachine.Travel("Walk");
+			AnimTree.Set("parameters/IDLE/blend_position",velocity.Normalized()); //Passes velocity vector to choose animation played
+			AnimTree.Set("parameters/Walk/blend_position",velocity.Normalized());
+		}
+		
 		Velocity = velocity;
 		MoveAndSlide();
 	}
